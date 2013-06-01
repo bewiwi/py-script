@@ -11,10 +11,11 @@ class SondeHandler(BaseHTTPRequestHandler):
                         self.send_response(200)
                         url=urlparse(self.path)
                         script=url.path
-                        arg=""
+                        arg=["./script/"+script]
                         for key,value in parse_qs(url.query).items():
-                                arg=arg+" -"+str(key)+" \""+str(value[0]+"\"")
-                        rep=self.execScript("./script/"+script,arg)
+                                arg.append("-"+str(key))
+                                arg.append(str(value[0]))
+                        rep=self.execScript(arg)
                         self.send_header('Content-Type','text/html')
                 except Exception, e:
                         self.send_response(500)
@@ -24,9 +25,9 @@ class SondeHandler(BaseHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(rep)
 
-        def execScript(self,file,arg):
-                print file+" "+arg
-                value=str(subprocess.check_output([file,arg]).strip())
+        def execScript(self,arg):
+                print arg
+                value=str(subprocess.check_output(arg).strip())
                 return value
 
 class myHTTPServer(HTTPServer):
