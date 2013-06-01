@@ -45,12 +45,11 @@ class myHTTPServer(HTTPServer):
 
 class SondeHTTP():
 
-        def __init__(self,writer):
-                self.writer=writer
+        def __init__(self):
                 self.port=8080
-                self.writer.log('Start HTTP server on '+str(self.port))
+                print 'Start HTTP server on '+str(self.port)
                 self.server = myHTTPServer(('',self.port),SondeHandler)
                 self.server.serve_forever()
-                self.writer.log('Stop HTTP server on '+str(self.port))
+                print 'Stop HTTP server on '+str(self.port)
         
        
