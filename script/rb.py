@@ -13,7 +13,7 @@ for opt,arg in opts:
         if opt == '-s':
                 statu=arg
         elif opt == '-i':
-                gpio=arg
+                gpio=int(arg)
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
